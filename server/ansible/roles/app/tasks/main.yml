@@ -1,0 +1,11 @@
+- name: Copy app project
+  copy:
+    src: ../files/
+    dest: /opt
+    owner: vagrant
+    group: vagrant
+
+- name: Run services
+  command: docker-compose up -d
+  args:
+    chdir: /opt/app

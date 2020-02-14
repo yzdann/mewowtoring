@@ -1,0 +1,27 @@
+version: '3.7'
+
+services:
+  web:
+    build:
+      context: ./services/web
+      dockerfile: Dockerfile
+    expose:
+      - 5000
+    networks:
+      - app
+
+  nginx:
+    build:
+      context: ./services/openresty
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 80:80
+    depends_on:
+      - web
+    networks:
+      - app
+
+networks:
+  app:
+    driver: bridge

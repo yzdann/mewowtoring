@@ -1,0 +1,18 @@
+- name: Copy images
+  copy:
+    src: ../files
+    dest: /tmp 
+    owner: vagrant
+    group: vagrant
+
+- name: Load image from archive
+  command: docker load -i "/tmp/files/{{ item }}.bz2"
+  with_items:
+    - openresty/openresty:alpine
+    - python:3.7
+    - python:3.7-slim
+
+- name: Clean up archived images files
+  file:
+    path: /tmp/files
+    state: absent
